@@ -1,0 +1,130 @@
+{
+	"spells":{
+		"1":[
+			{
+				"id":"furrybolt",
+				"name":"Furrybolt",
+				"desc":"hahahahahahahhah !!!!! owoowowowowowowo",
+				"effects":{
+					"target":"choice",
+					"cmds":[
+						{"cmd":"addHP","args":["-1", "1"]},
+						{"cmd":"addStat","args":["furry", "3"]}
+					]
+				}
+			},
+			{
+				"id":"firebolt",
+				"name":"firebolt",
+				"desc":"hahahahahahahhah !!!!! owoowowowowowowo",
+				"effects":{
+					"target":"choice",
+					"cmds":[
+						{"cmd":"addHP","args":["-1", "1"]},
+						{"cmd":"addStat","args":["furry", "3"]}
+					]
+				}
+			},
+			{
+				"id":"lightning",
+				"name":"Lightning",
+				"desc":"hahahahahahahhah !!!!! owoowowowowowowo",
+				"effects":{
+					"target":"choice",
+					"cmds":[
+						{"cmd":"addHP","args":["-1", "1"]},
+						{"cmd":"addStat","args":["furry", "3"]}
+					]
+				}
+			},
+			{
+				"id":"cumblast",
+				"name":"Cumblast",
+				"desc":"hahahahahahahhah !!!!! owoowowowowowowo",
+				"effects":{
+					"target":"choice",
+					"cmds":[
+						{"cmd":"addHP","args":["-1", "1"]},
+						{"cmd":"addStat","args":["furry", "3"]}
+					]
+				}
+			},
+			{
+				"id":"baja_blast",
+				"name":"Mountain Dew: Baja Blast",
+				"desc":"hahahahahahahhah !!!!! owoowowowowowowo",
+				"effects":{
+					"target":"choice",
+					"cmds":[
+						{"cmd":"addHP","args":["-1", "1"]},
+						{"cmd":"addStat","args":["furry", "3"]}
+					]
+				}
+			}
+		]
+	},
+	"summons":{
+		"1":[
+			{
+				"id":"weeb",
+				"name":"Weeb",
+				"hp":10,
+				"attack":0,
+				"effects":{
+					"target":"choice",
+					"cmds":[
+						{"cmd":"convert","args":["weeb", "2"]}
+					]
+				}
+			},
+			{
+				"id":"corsten",
+				"name":"Corsten",
+				"hp":10,
+				"attack":0,
+				"effects":{
+					"target":"choice",
+					"cmds":[
+						{"cmd":"convert","args":["weeb", "2"]}
+					]
+				}
+			},
+			{
+				"id":"pavlic",
+				"name":"Pavlic",
+				"hp":10,
+				"attack":0,
+				"effects":{
+					"target":"choice",
+					"cmds":[
+						{"cmd":"convert","args":["weeb", "2"]}
+					]
+				}
+			},
+			{
+				"id":"2m_dude",
+				"name":"2M Dude",
+				"hp":10,
+				"attack":0,
+				"effects":{
+					"target":"choice",
+					"cmds":[
+						{"cmd":"convert","args":["weeb", "2"]}
+					]
+				}
+			},
+			{
+				"id":"sam",
+				"name":"Sam",
+				"hp":10,
+				"attack":0,
+				"effects":{
+					"target":"choice",
+					"cmds":[
+						{"cmd":"convert","args":["weeb", "2"]}
+					]
+				}
+			}
+		]
+	}
+}
