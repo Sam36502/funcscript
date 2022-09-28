@@ -17,8 +17,8 @@ type Script struct {
 
 type Command struct {
 	Pos  lexer.Position
-	Name string        `parser:"@Ident '('"`
-	Args []*Expression `parser:"(@@ (',' @@)*)? ')'"`
+	Name string       `parser:"@Ident '('"`
+	Args []Expression `parser:"(@@ (',' @@)*)? ')'"`
 }
 
 type Expression struct {

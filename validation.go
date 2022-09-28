@@ -4,7 +4,7 @@ import "fmt"
 
 type Context struct {
 	FuncName string
-	Args     []*Expression
+	Args     []Expression
 }
 
 func (ctx Context) GetInt(index int) (int, error) {
@@ -51,11 +51,10 @@ func (ctx Context) GetBool(index int) (bool, error) {
 }
 
 func (ctx Context) GetAny(index int) (Expression, error) {
-	arg := ctx.Args[index]
-	if arg == nil {
+	if index < 0 || index >= len(ctx.Args) {
 		return Expression{}, fmt.Errorf("func '%s' [%d]: expected any, none received", ctx.FuncName, index)
 	}
-	return *arg, nil
+	return ctx.Args[index], nil
 }
 
 //// util functions ////
@@ -73,7 +72,7 @@ func errMsg(expected string, ctx Context, index int) error {
 }
 
 // just finds what the received type and arg is for clearer debug messages
-func recType(expr *Expression) string {
+func recType(expr Expression) string {
 	if expr.IntValue != nil {
 		return fmt.Sprintf("int (%d)", *expr.IntValue)
 	}

@@ -103,13 +103,20 @@ func evalCommand(cmd Command) (*Expression, error) {
 	}
 
 	// Check for recursive commands
+	ctx.Args = make([]Expression, len(cmd.Args))
 	for i, arg := range cmd.Args {
 		if arg.CommandValue != nil {
+			fmt.Println("tl evalling cmd:", arg.CommandValue.String())
 			expr, err := evalCommand(*arg.CommandValue)
+			fmt.Println("tl result:", expr.String())
 			if err != nil {
 				return nil, fmt.Errorf("%v: %v", cmd.Pos, err)
 			}
-			cmd.Args[i] = expr
+			if expr != nil {
+				ctx.Args[i] = *expr
+			}
+		} else {
+			ctx.Args[i] = arg
 		}
 	}
 
