@@ -76,7 +76,7 @@ func Eval(script string) error {
 	for _, cmd := range ast.Commands {
 		_, err := evalCommand(*cmd)
 		if err != nil {
-			return err
+			return fmt.Errorf("%s: %v", cmd.Pos, err)
 		}
 	}
 
@@ -89,7 +89,7 @@ func evalCommand(cmd Command) (*Expression, error) {
 		Args:     cmd.Args,
 	}
 
-	// Handle special built-in functions
+	// Handle special cases before args are evaluated
 	switch cmd.Name {
 	case "_if":
 		return biIf(ctx)
@@ -99,18 +99,16 @@ func evalCommand(cmd Command) (*Expression, error) {
 
 	f, exists := g_funcs[cmd.Name]
 	if !exists {
-		return nil, fmt.Errorf("%v: no function '%s' is registered", cmd.Pos, cmd.Name)
+		return nil, fmt.Errorf("no function '%s' is registered", cmd.Name)
 	}
 
-	// Check for recursive commands
+	// Check recursively for nested commands and eval args
 	ctx.Args = make([]Expression, len(cmd.Args))
 	for i, arg := range cmd.Args {
 		if arg.CommandValue != nil {
-			fmt.Println("tl evalling cmd:", arg.CommandValue.String())
 			expr, err := evalCommand(*arg.CommandValue)
-			fmt.Println("tl result:", expr.String())
 			if err != nil {
-				return nil, fmt.Errorf("%v: %v", cmd.Pos, err)
+				return nil, err
 			}
 			if expr != nil {
 				ctx.Args[i] = *expr
@@ -122,7 +120,7 @@ func evalCommand(cmd Command) (*Expression, error) {
 
 	expr, err := f(ctx)
 	if err != nil {
-		return nil, fmt.Errorf("%v: %v", cmd.Pos, err)
+		return nil, err
 	}
 
 	return expr, nil

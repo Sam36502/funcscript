@@ -304,9 +304,7 @@ func biIf(ctx Context) (*Expression, error) {
 	}
 	if cond {
 		if rightExpr.CommandValue != nil {
-			fmt.Println("Evalling cmd:", rightExpr.CommandValue.String())
 			expr, err := evalCommand(*rightExpr.CommandValue)
-			fmt.Println("result:", expr.String())
 			if err != nil {
 				return expr, err
 			}
@@ -314,13 +312,12 @@ func biIf(ctx Context) (*Expression, error) {
 			return &rightExpr, nil
 		}
 	} else {
+
 		wrongExpr, err := ctx.GetAny(2)
 		if err == nil {
 			if wrongExpr.CommandValue != nil {
-				fmt.Println("Evalling cmd:", wrongExpr.CommandValue.String())
 				expr, err := evalCommand(*wrongExpr.CommandValue)
-				fmt.Println("result:", expr.String())
-				if err != nil {
+				if err == nil {
 					return expr, err
 				}
 			} else {
