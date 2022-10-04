@@ -21,7 +21,7 @@ func TestHello(t *testing.T) {
 		_print("Hello, world!");
 		_print("second", _print("\nfirst"));
 	`
-	err := Eval(script)
+	_, err := Eval(script)
 	assert.NoError(t, err)
 }
 
@@ -33,7 +33,7 @@ func TestIf(t *testing.T) {
 		_print("1 0: ", _if(true,  "if", _if(false, "elseif", "else")));
 		_print("1 1: ", _if(true,  "if", _if(true,  "elseif", "else")));
 	`
-	err := Eval(script)
+	_, err := Eval(script)
 	assert.NoError(t, err)
 }
 
@@ -55,7 +55,7 @@ func TestFizzbuzz(t *testing.T) {
 			_set("i", _sum(_get("i"), 1))
 		);
 	`
-	err := Eval(script)
+	_, err := Eval(script)
 	assert.NoError(t, err)
 }
 
@@ -72,12 +72,14 @@ func TestCustomFunc(t *testing.T) {
 		b, e := ctx.GetBool(3)
 		assert.NoError(t, e)
 		fmt.Printf("Custom function received (%d, %f, '%s', %t)\n", i, d, s, b)
-		return nil, nil
+		return DoubleExpr(d + float64(i)), nil
 	}
 	err := AddFunction("custFunc", cFunc)
 	assert.NoError(t, err)
-	err = Eval(`
+	res, err := Eval(`
 		custFunc(69, 3.14159, "Hello, world!", true);
 	`)
+
+	fmt.Printf("Result: %g\n", *res.DoubleValue)
 	assert.NoError(t, err)
 }

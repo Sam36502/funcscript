@@ -66,21 +66,22 @@ func GetVar(name string) (Expression, error) {
 }
 
 // Evaluates a funcscript string
-func Eval(script string) error {
+func Eval(script string) (*Expression, error) {
 	ast := Script{}
 	err := g_parser.ParseString(script, &ast)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
+	var expr *Expression
 	for _, cmd := range ast.Commands {
-		_, err := evalCommand(*cmd)
+		expr, err = evalCommand(*cmd)
 		if err != nil {
-			return fmt.Errorf("%s: %v", cmd.Pos, err)
+			return nil, fmt.Errorf("%s: %v", cmd.Pos, err)
 		}
 	}
 
-	return nil
+	return expr, nil
 }
 
 func evalCommand(cmd Command) (*Expression, error) {
