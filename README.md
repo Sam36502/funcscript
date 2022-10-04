@@ -95,6 +95,6 @@ these, they are all prefixed with an underscore (_):
  3. Breadth-first command evaluation
  4. Error-handling & debug info
  5. Customisable syntax (change separators, custom lexer?, etc.)
- 6. Returning results from `Eval()` (`_return()` ?)
+ 6. ~~Returning results from `Eval()` (`_return()` ?)~~
  7. Performance concerns (pre-build parser?)
  8. Define new functions in the script? (_func("cmdname", cmds...))
