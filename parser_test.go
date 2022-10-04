@@ -83,3 +83,16 @@ func TestCustomFunc(t *testing.T) {
 	fmt.Printf("Result: %g\n", *res.DoubleValue)
 	assert.NoError(t, err)
 }
+
+func TestReturn(t *testing.T) {
+	setup()
+
+	res, err := Eval(`
+		_print("Before the return");
+		_return(_sum(1, 2, 3, 5));
+		_print("After the return");
+	`)
+	assert.NoError(t, err)
+
+	fmt.Printf("Result: %d\n", *res.IntValue)
+}

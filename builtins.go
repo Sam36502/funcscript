@@ -6,19 +6,20 @@ import (
 )
 
 var g_builtins map[string]HandlerFunction = map[string]HandlerFunction{
-	"_print": biPrint,
-	"_cat":   biCat,
-	"_set":   biSet,
-	"_get":   biGet,
-	"_sum":   biSum,
-	"_dif":   biDif,
-	"_mul":   biMul,
-	"_div":   biDiv,
-	"_mod":   biMod,
-	"_eq":    biEq,
-	"_not":   biNot,
-	// "_if":    biIf,    // Commented built-ins are handled in the command
-	// "_while": biWhile, // evaluator but are kept here for documentation
+	"_print":  biPrint,
+	"_cat":    biCat,
+	"_set":    biSet,
+	"_get":    biGet,
+	"_sum":    biSum,
+	"_dif":    biDif,
+	"_mul":    biMul,
+	"_div":    biDiv,
+	"_mod":    biMod,
+	"_eq":     biEq,
+	"_not":    biNot,
+	"_return": biReturn,
+	// "_if":     biIf,    // Commented built-ins are handled in the command
+	// "_while":  biWhile, // evaluator but are kept here for documentation
 }
 
 //func bi(ctx Context) (*Expression, error) {
@@ -291,6 +292,11 @@ func biNot(ctx Context) (*Expression, error) {
 		return nil, err
 	}
 	return BoolExpr(!b), nil
+}
+
+func biReturn(ctx Context) (*Expression, error) {
+	expr, _ := ctx.GetAny(0)
+	return &expr, nil
 }
 
 func biIf(ctx Context) (*Expression, error) {

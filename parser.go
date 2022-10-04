@@ -79,6 +79,9 @@ func Eval(script string) (*Expression, error) {
 		if err != nil {
 			return nil, fmt.Errorf("%s: %v", cmd.Pos, err)
 		}
+		if cmd.Name == "_return" {
+			break
+		}
 	}
 
 	return expr, nil
