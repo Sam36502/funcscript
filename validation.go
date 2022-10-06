@@ -105,7 +105,7 @@ func (ctx *Context) evalCmdArg(index int) (*Expression, error) {
 	if err != nil {
 		return nil, err
 	}
-	result, err := evalCommand(cmd)
+	result, err := EvalCmd(cmd)
 	if err != nil {
 		return nil, err
 	}

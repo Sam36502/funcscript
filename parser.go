@@ -75,7 +75,7 @@ func Eval(script string) (*Expression, error) {
 
 	var expr *Expression
 	for _, cmd := range ast.Commands {
-		expr, err = evalCommand(*cmd)
+		expr, err = EvalCmd(*cmd)
 		if err != nil {
 			return nil, fmt.Errorf("%s: %v", cmd.Pos, err)
 		}
@@ -87,7 +87,7 @@ func Eval(script string) (*Expression, error) {
 	return expr, nil
 }
 
-func evalCommand(cmd Command) (*Expression, error) {
+func EvalCmd(cmd Command) (*Expression, error) {
 	ctx := Context{
 		FuncName: cmd.Name,
 		Args:     cmd.Args,
@@ -110,7 +110,7 @@ func evalCommand(cmd Command) (*Expression, error) {
 	ctx.Args = make([]Expression, len(cmd.Args))
 	for i, arg := range cmd.Args {
 		if arg.CommandValue != nil {
-			expr, err := evalCommand(*arg.CommandValue)
+			expr, err := EvalCmd(*arg.CommandValue)
 			if err != nil {
 				return nil, err
 			}

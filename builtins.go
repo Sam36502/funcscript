@@ -310,7 +310,7 @@ func biIf(ctx Context) (*Expression, error) {
 	}
 	if cond {
 		if rightExpr.CommandValue != nil {
-			expr, err := evalCommand(*rightExpr.CommandValue)
+			expr, err := EvalCmd(*rightExpr.CommandValue)
 			if err != nil {
 				return expr, err
 			}
@@ -322,7 +322,7 @@ func biIf(ctx Context) (*Expression, error) {
 		wrongExpr, err := ctx.GetAny(2)
 		if err == nil {
 			if wrongExpr.CommandValue != nil {
-				expr, err := evalCommand(*wrongExpr.CommandValue)
+				expr, err := EvalCmd(*wrongExpr.CommandValue)
 				if err == nil {
 					return expr, err
 				}
@@ -355,7 +355,7 @@ func biWhile(ctx Context) (*Expression, error) {
 			cond = *condExpr.BoolValue == "true"
 		}
 		if condExpr.CommandValue != nil {
-			evCond, err := evalCommand(*condExpr.CommandValue)
+			evCond, err := EvalCmd(*condExpr.CommandValue)
 			if err != nil {
 				return nil, err
 			}
@@ -367,7 +367,7 @@ func biWhile(ctx Context) (*Expression, error) {
 		}
 
 		for _, c := range cmds {
-			_, err := evalCommand(c)
+			_, err := EvalCmd(c)
 			if err != nil {
 				return nil, err
 			}
