@@ -56,10 +56,10 @@ func (ctx Context) GetString(index int) (string, error) {
 
 func (ctx Context) GetBool(index int) (bool, error) {
 	arg := ctx.Args[index]
-	if arg.BoolValue == nil {
+	if arg.BoolValueStr == nil {
 		expr, err := ctx.evalCmdArg(index)
 		if err == nil {
-			return *expr.BoolValue == "true", nil
+			return expr.BoolValue(), nil
 		}
 
 		// Try coercing
@@ -74,7 +74,7 @@ func (ctx Context) GetBool(index int) (bool, error) {
 		}
 		return false, errMsg("bool", ctx, index)
 	}
-	return *arg.BoolValue == "true", nil
+	return arg.BoolValue(), nil
 }
 
 func (ctx Context) GetAny(index int) (Expression, error) {
@@ -123,8 +123,8 @@ func recType(expr Expression) string {
 	if expr.StringValue != nil {
 		return fmt.Sprintf("string (%s)", *expr.StringValue)
 	}
-	if expr.BoolValue != nil {
-		return fmt.Sprintf("bool (%s)", *expr.BoolValue)
+	if expr.BoolValueStr != nil {
+		return fmt.Sprintf("bool (%s)", *expr.BoolValueStr)
 	}
 	if expr.CommandValue != nil {
 		return fmt.Sprintf("command (%s)", expr.CommandValue.String())

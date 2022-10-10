@@ -351,19 +351,13 @@ func biWhile(ctx Context) (*Expression, error) {
 			return nil, err
 		}
 
-		if condExpr.BoolValue != nil {
-			cond = *condExpr.BoolValue == "true"
-		}
+		cond = condExpr.BoolValue()
 		if condExpr.CommandValue != nil {
 			evCond, err := EvalCmd(*condExpr.CommandValue)
 			if err != nil {
 				return nil, err
 			}
-			if evCond.BoolValue != nil {
-				cond = *evCond.BoolValue == "true"
-			} else {
-				return nil, errMsg("bool", ctx, 0)
-			}
+			cond = evCond.BoolValue()
 		}
 
 		for _, c := range cmds {

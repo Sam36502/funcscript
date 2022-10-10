@@ -23,6 +23,6 @@ func StringExpr(val string) *Expression {
 func BoolExpr(val bool) *Expression {
 	bs := fmt.Sprint(val)
 	return &Expression{
-		BoolValue: &bs,
+		BoolValueStr: &bs,
 	}
 }

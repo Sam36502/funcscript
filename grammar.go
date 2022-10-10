@@ -25,7 +25,7 @@ type Expression struct {
 	Pos          lexer.Position
 	IntValue     *int     `parser:"  @Int"`
 	DoubleValue  *float64 `parser:"| @Float"`
-	BoolValue    *string  `parser:"| @('true' | 'false')"`
+	BoolValueStr *string  `parser:"| @('true' | 'false')"`
 	StringValue  *string  `parser:"| @String"`
 	CommandValue *Command `parser:"| @@"`
 }
@@ -48,6 +48,10 @@ func (c *Command) String() string {
 	return sb.String()
 }
 
+func (e *Expression) BoolValue() bool {
+	return e.BoolValueStr != nil && *e.BoolValueStr == "true"
+}
+
 func (e *Expression) String() string {
 	if e.IntValue != nil {
 		return fmt.Sprintf("%d", *e.IntValue)
@@ -55,8 +59,8 @@ func (e *Expression) String() string {
 	if e.DoubleValue != nil {
 		return fmt.Sprintf("%g", *e.DoubleValue)
 	}
-	if e.BoolValue != nil {
-		return *e.BoolValue
+	if e.BoolValueStr != nil {
+		return *e.BoolValueStr
 	}
 	if e.StringValue != nil {
 		return *e.StringValue
