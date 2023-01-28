@@ -23,6 +23,8 @@ Here's a basic example of a possible use-case, assuming `DamageTarget()` is defi
 
 package main
 
+import "github.com/Sam36502/funcscript"
+
 func main() {
 	err := funcscript.Initialise()
 	if err != nil {
@@ -46,7 +48,7 @@ func main() {
 		fmt.Println("Failed to add dmg function:", err)
 	}
 	
-	err = Eval(`
+	err = funcscript.Eval(`
 		_set("target", "steve");
 		dmg(_get("target"), 10);
 	`)
@@ -70,8 +72,8 @@ which will be evaluated before passing in its value.
 
 ## Built-In Functions
 Generally, most of the use of FuncScript is to call user-defined functions, but for
-convenience and debugging, some handy functions for general use. To help distinguish
-these, they are all prefixed with an underscore (_):
+convenience and debugging, some handy functions for general use have been built in.
+To help distinguish these, they are all prefixed with an underscore (_):
 
 | Function name          | Description                                                                                           |
 |------------------------|-------------------------------------------------------------------------------------------------------|
